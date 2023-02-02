@@ -1,15 +1,16 @@
-const Input = ({ label, state, setState }) => {
+//type=" degani default xolatdagi type degani "
+const Input = ({ label, state, setState, type = "text" }) => {
   return (
     <div className='form-floating'>
       <input
-        type='email'
+        type={type}
         className='form-control'
         id='floatingInput'
         placeholder={label}
         value={state}
         onChange={(e) => setState(e.target.value)}
       />
-      <label>{label}</label>
+      <label htmlFor='floatingInput'>{label}</label>
     </div>
   )
 }

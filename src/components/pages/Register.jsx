@@ -9,18 +9,23 @@ const Register = () => {
     <div className='container flex w-[250px] md:w-[500px] border-2 md:p-8 mt-8 rounded-lg bg-[whitesmoke] '>
       <main className='form-signin w-100 m-auto align-items-center'>
         <form>
-          <h1 className='h3 mb-3 mt-4 fw-normal'>Please sign in</h1>
+          <h1 className='h3 mb-3 mt-4 fw-normal'>Please sign up</h1>
           <Input state={name} setState={setName} label={"UserName"} />
           <Input state={email} setState={setEmail} label={"Email address"} />
-          <Input state={password} setState={setPassword} label={"Password"} />
+          <Input
+            state={password}
+            type='password'
+            setState={setPassword}
+            label={"Password"}
+          />
 
           <button
             className='w-100 btn btn-lg btn-primary text-black'
             type='submit'
           >
-            Sign in
+            Sign up
           </button>
-          <p className='mt-5 mb-3 text-muted'>© 2017–2022</p>
+          <p className='mt-5 mb-3 text-muted'>© 2022–2023</p>
         </form>
       </main>
     </div>
