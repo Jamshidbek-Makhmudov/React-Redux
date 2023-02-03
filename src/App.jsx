@@ -1,6 +1,6 @@
 //useSelector bu hook bolib bizga hamma statelarni olib beradi
 import React from "react"
-import { useSelector } from "react-redux" // bu bizga statelarni chaqirish uchun kerak
+//import { useSelector } from "react-redux" // bu bizga statelarni chaqirish uchun kerak
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import Home from "./components/home/Home"
 import LoginLink from "./components/linkpage/LoginLink"

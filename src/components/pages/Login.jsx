@@ -1,8 +1,10 @@
 import React, { useState } from "react"
 import Input from "../generics/Input"
 import { useSelector, useDispatch } from "react-redux"
-import { loginUserStart } from "../slice/auth"
+import { signUserStart, signUserSuccess, signUserFailure } from "../slice/auth"
 import Snipper from "../generics/Snipper"
+import authService from "../../service/authService"
+import ValidationError from "../errors/ValidationError"
 
 const Login = () => {
   const [email, setEmail] = useState("")
@@ -10,9 +12,16 @@ const Login = () => {
   const dispatch = useDispatch()
   const { isLoading } = useSelector((state) => state.auth) // auth orniga distrubtizatsiya qilib dispatch ichida
   // yozib qoysak boladi.
-  const loginHandler = (e) => {
+  const loginHandler = async (e) => {
     e.preventDefault()
-    dispatch(loginUserStart())
+    dispatch(signUserStart())
+    const user = { email, password }
+    try {
+      const response = await authService.userLogin(user)
+      dispatch(signUserSuccess(response.user))
+    } catch (error) {
+      dispatch(signUserFailure(error.response.data.errors))
+    }
   }
 
   return (
@@ -20,17 +29,22 @@ const Login = () => {
       <main className='form-signin w-100 m-auto align-items-center'>
         <form>
           <h1 className='h3 mb-3 mt-4 fw-normal'>Please sign in</h1>
-
+          <ValidationError />
           <Input state={email} setState={setEmail} label={"Email address"} />
-          <Input state={password} setState={setPassword} label={"Password"} />
+          <Input
+            state={password}
+            type='password'
+            setState={setPassword}
+            label={"Password"}
+          />
 
-          <div className='checkbox mb-3 mt-4'>
+          {/* <div className='checkbox mb-3 mt-4'>
             <label>
               <input type='checkbox' value='remember-me' /> Remember me
             </label>
-          </div>
+          </div> */}
           <button
-            className='w-100 btn btn-lg btn-primary text-black'
+            className='w-100 btn btn-lg btn-primary text-black mt-2'
             type='submit'
             onClick={loginHandler}
             disabled={isLoading}
