@@ -14,7 +14,7 @@ const Navbar = () => {
     navigate("/loginLink")
   }
   return (
-    <div className='flex bg-yellow-300 h-[70px] py-2 px-14 items-center justify-between'>
+    <div className='flex flex-col md:flex-row bg-yellow-300 h-[100px]  md:h-[70px] py-2 px-14 items-center justify-between'>
       <Link to='/' className='hover:opacity-75 hover:ease-in hover:scale-105'>
         <h3 className='italic text--2xl'>Jamshid</h3>
       </Link>
@@ -22,12 +22,26 @@ const Navbar = () => {
         {loggedIn ? (
           <>
             <div className=' flex items-center gap-2'>
-              <i class='fa-solid fa-user'></i>
+              <i className='fa-solid fa-user'></i>
               <p className=''>{user.username}</p>
             </div>
-            <Link to='/articlesLink'>
-              <button className='btn btn-outline-danger'>Atricles</button>
-            </Link>
+            {/* <Link to='/articlesLink'> */}
+            <button
+              onClick={() => navigate("/create")}
+              type='button'
+              className='btn btn-primary text-black'
+            >
+              Create
+            </button>
+
+            <button
+              onClick={() => navigate("/articlesLink")}
+              type='button'
+              className='btn btn-success text-black'
+            >
+              Articles
+            </button>
+            {/* </Link> */}
             <button className='btn btn-outline-danger' onClick={logoutHandler}>
               Log out
             </button>

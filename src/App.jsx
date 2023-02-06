@@ -5,9 +5,11 @@ import { useDispatch } from "react-redux"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import Home from "./components/home/Home"
 import ArticlesLink from "./components/linkpage/Articles"
+import CreateArticles from "./components/linkpage/CreateArticles"
 import LoginLink from "./components/linkpage/LoginLink"
 import RegisterLink from "./components/linkpage/RegisterLink "
 import Navbar from "./components/navbar/Navbar"
+import ArticleDetails from "./components/pages/ArticleDetails"
 import { getArticlesStart, getArticleSuccess } from "./components/slice/article"
 import { signUserSuccess } from "./components/slice/auth"
 import { getItem } from "./helper/persistanceStorage"
@@ -43,14 +45,20 @@ const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
+      {/* <div className='flex px-14'> */}
+      {/* px-14 berganimni sababi juda yopishib ketmasligi uchun lekin bu kod navbar va articles da ham qaytarilgan ularni ochirib tashlasa ham boladi */}
       <Routes>
         <Route path='/home' element={<Home />} />
         <Route path='/loginLink' element={<LoginLink />} />
         <Route path='/registerLink' element={<RegisterLink />} />
         <Route path='/articlesLink' element={<ArticlesLink />} />
+        <Route path='/create' element={<CreateArticles />} />
+        <Route path='/details/:slug' element={<ArticleDetails />} />
+        {/* /:id qilganimizni sabai bu generic bolib poiscda apidan kelagn malumotlarni tepaga yozib beradi */}
         <Route path='/' element={<Navigate to={"/home"} />} />
         <Route path='*' element={<h1>404 not found</h1>} />
       </Routes>
+      {/* </div> */}
     </BrowserRouter>
   )
 }

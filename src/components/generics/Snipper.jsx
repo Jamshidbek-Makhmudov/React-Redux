@@ -2,8 +2,8 @@ import React from "react"
 
 const Snipper = () => {
   return (
-    <div class='spinner-border text-light' role='status'>
-      <span class='visually-hidden'>Loading...</span>
+    <div className='spinner-border text-black' role='status'>
+      <span className='visually-hidden'>Loading...</span>
     </div>
   )
 }
