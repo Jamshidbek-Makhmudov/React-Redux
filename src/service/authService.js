@@ -10,8 +10,8 @@ const authService = {
     return data
   },
   async getUser() {
-    // const response = await axios.get("/users")
-    // return response
+    const response = await axios.get("/user") //sammi da response orniga {data berib ketgan}
+    return response.data
   },
 }
 

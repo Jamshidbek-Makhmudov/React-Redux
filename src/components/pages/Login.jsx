@@ -1,16 +1,18 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Input from "../generics/Input"
 import { useSelector, useDispatch } from "react-redux"
 import { signUserStart, signUserSuccess, signUserFailure } from "../slice/auth"
 import Snipper from "../generics/Snipper"
 import authService from "../../service/authService"
 import ValidationError from "../errors/ValidationError"
+import { useNavigate } from "react-router-dom"
 
 const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const dispatch = useDispatch()
-  const { isLoading } = useSelector((state) => state.auth) // auth orniga distrubtizatsiya qilib dispatch ichida
+  const { isLoading, loggedIn } = useSelector((state) => state.auth) // auth orniga distrubtizatsiya qilib dispatch ichida
+  const navigate = useNavigate() // bu hookimiz user login qilgandan keyin uni boshqa sahifaga jonatib yuborish uchun keran
   // yozib qoysak boladi.
   const loginHandler = async (e) => {
     e.preventDefault()
@@ -19,10 +21,17 @@ const Login = () => {
     try {
       const response = await authService.userLogin(user)
       dispatch(signUserSuccess(response.user))
+      navigate("/")
     } catch (error) {
       dispatch(signUserFailure(error.response.data.errors))
     }
   }
+  useEffect(() => {
+    //bu useEffect biz foydalanuchi register va login qilganidan keyin yana qayta osha pagelarga otaolasligi uchun ishlatamiz
+    if (loggedIn) {
+      navigate("/articlesLink")
+    }
+  }, [loggedIn])
 
   return (
     <div className='container flex w-[250px] md:w-[500px] border-2 md:p-8 mt-8 rounded-lg bg-[whitesmoke] '>
