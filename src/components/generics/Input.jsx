@@ -5,7 +5,7 @@ const Input = ({ label, state, setState, type = "text" }) => {
       <input
         type={type}
         className='form-control'
-        id='floatingInput'
+        id='floatingInput' // id bilan htmlFor dagi kodlar auto suggestion beradi
         placeholder={label}
         value={state}
         onChange={(e) => setState(e.target.value)}
