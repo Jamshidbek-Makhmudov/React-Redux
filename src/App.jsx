@@ -6,6 +6,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import Home from "./components/home/Home"
 import ArticlesLink from "./components/linkpage/Articles"
 import CreateArticles from "./components/linkpage/CreateArticles"
+import EditArticles from "./components/linkpage/EditArticles"
 import LoginLink from "./components/linkpage/LoginLink"
 import RegisterLink from "./components/linkpage/RegisterLink "
 import Navbar from "./components/navbar/Navbar"
@@ -54,6 +55,7 @@ const App = () => {
         <Route path='/articlesLink' element={<ArticlesLink />} />
         <Route path='/create' element={<CreateArticles />} />
         <Route path='/details/:slug' element={<ArticleDetails />} />
+        <Route path='/edit/:slug' element={<EditArticles />} />
         {/* /:id qilganimizni sabai bu generic bolib poiscda apidan kelagn malumotlarni tepaga yozib beradi */}
         <Route path='/' element={<Navigate to={"/home"} />} />
         <Route path='*' element={<h1>404 not found</h1>} />

@@ -1,13 +1,30 @@
-import React from "react"
-import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
-import card from "../../assets/img/card.png"
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import ArticleService from "../../service/article"
 import Snipper from "../generics/Snipper"
+import { getArticlesStart, getArticleSuccess } from "../slice/article"
+import ArticleCard from "./ArticleCard"
 
 const Articles = () => {
   const { articles, isLoading } = useSelector((state) => state.article) // bu yerdagi article bu articleSliceni ichidagi namedan keladi {artciles} esa
   //initialState dagi article hisoblanadi
-  const navigate = useNavigate()
+  // const { loggedIn, user } = useSelector((state) => state.auth)
+  // const navigate = useNavigate()
+  const dispatch = useDispatch()
+  //q
+  const getArticles = async () => {
+    dispatch(getArticlesStart())
+    try {
+      const response = await ArticleService.getArticles()
+      dispatch(getArticleSuccess(response.articles))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getArticles()
+  }, [])
+
   return (
     <div className=''>
       <div className='flex w-full justify-center'>
@@ -15,43 +32,8 @@ const Articles = () => {
       </div>
       <div className='px-14  '>
         <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3  '>
-          {articles.map((item) => (
-            <div className='col h-  ' key={item.id}>
-              <div className='card shadow-sm h-100 rounded-2xl'>
-                <img src={card} alt='' className='w-full p-2 ' />
-
-                <div className='card-body'>
-                  <p className='card-text font-bold'>{item.title}</p>
-                  <p className='card-text'>{item.description}</p>
-                </div>
-                <div className=' card-footer bg-yellow-300 d-flex mt-2 justify-content-between align-items-center'>
-                  <div className='btn-group '>
-                    <button
-                      onClick={() => navigate(`/details/${item.slug}`)}
-                      type='button'
-                      className='btn btn-sm btn-outline-success'
-                    >
-                      View
-                    </button>
-                    <button
-                      type='button'
-                      className='btn btn-sm btn-outline-secondary'
-                    >
-                      Edit
-                    </button>
-                    <button
-                      type='button'
-                      className='btn btn-sm btn-outline-danger'
-                    >
-                      Delete
-                    </button>
-                  </div>
-                  <small className='text-muted font-bold capitalize'>
-                    {item.author.username}
-                  </small>
-                </div>
-              </div>
-            </div>
+          {articles.map((item, index) => (
+            <ArticleCard item={item} getArticles={getArticles} key={index} />
           ))}
         </div>
       </div>
